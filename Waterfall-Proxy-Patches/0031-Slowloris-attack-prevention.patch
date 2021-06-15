@@ -1,0 +1,23 @@
+From e9dc8f327f17474a689687b55e896061dad8dde6 Mon Sep 17 00:00:00 2001
+From: LinsaFTW <25271111+linsaftw@users.noreply.github.com>
+Date: Tue, 15 Jun 2021 12:50:52 -0300
+Subject: [PATCH] Slowloris attack prevention
+
+
+diff --git a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
+index fd2e8bd7..25adbc76 100644
+--- a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
++++ b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
+@@ -216,8 +216,8 @@ public class PipelineUtils
+             ch.config().setAllocator( PooledByteBufAllocator.DEFAULT );
+             ch.config().setWriteBufferWaterMark( MARK );
+ 
+-            ch.pipeline().addLast( FRAME_DECODER, new Varint21FrameDecoder() );
+             ch.pipeline().addLast( TIMEOUT_HANDLER, new ReadTimeoutHandler( BungeeCord.getInstance().config.getTimeout(), TimeUnit.MILLISECONDS ) );
++            ch.pipeline().addLast( FRAME_DECODER, new Varint21FrameDecoder() );
+             ch.pipeline().addLast( FRAME_PREPENDER, framePrepender );
+ 
+             ch.pipeline().addLast( BOSS_HANDLER, new HandlerBoss() );
+-- 
+2.31.1.windows.1
+
