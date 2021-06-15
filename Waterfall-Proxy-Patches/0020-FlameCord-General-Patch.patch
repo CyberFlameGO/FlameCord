@@ -1,4 +1,4 @@
-From 91af7ea587264e4af28fecb81b12163fe8a7f75e Mon Sep 17 00:00:00 2001
+From 28ae79ae30f271e2238fd7b0ff5c695a4f472230 Mon Sep 17 00:00:00 2001
 From: Juan Cruz Linsalata <LinsaFTW@users.noreply.github.com>
 Date: Mon, 12 Oct 2020 15:40:53 -0300
 Subject: [PATCH] FlameCord General Patch
@@ -191,7 +191,7 @@ index 00000000..a323598e
 +    }
 +}
 diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
-index 3e7bd97b..46f180a0 100644
+index 594efb05..41342ddb 100644
 --- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 +++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 @@ -9,6 +9,9 @@ import com.google.common.collect.Sets;
@@ -285,7 +285,7 @@ index f5e09292..3e3e42a2 100644
      }
  
 diff --git a/proxy/src/main/java/net/md_5/bungee/UserConnection.java b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
-index fb065ccd..3d18dbf9 100644
+index 25fefe81..6060d61a 100644
 --- a/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 +++ b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 @@ -35,6 +35,7 @@ import net.md_5.bungee.api.SkinConfiguration;

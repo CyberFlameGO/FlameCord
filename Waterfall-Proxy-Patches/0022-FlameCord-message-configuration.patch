@@ -1,4 +1,4 @@
-From 8d486c50cd28b8e5714285f643ea3dc75adeb34c Mon Sep 17 00:00:00 2001
+From e8190c05619acfdca8cff2fb102e0d028e666dcb Mon Sep 17 00:00:00 2001
 From: linsaftw <25271111+linsaftw@users.noreply.github.com>
 Date: Sat, 1 May 2021 13:40:39 -0300
 Subject: [PATCH] FlameCord message configuration
@@ -209,7 +209,7 @@ index a323598e..bf6f8538 100644
      }
  }
 diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
-index b1ac28a5..d2c9a5be 100644
+index 8e3a9d25..e1c29c17 100644
 --- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 +++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 @@ -588,14 +588,8 @@ public class BungeeCord extends ProxyServer

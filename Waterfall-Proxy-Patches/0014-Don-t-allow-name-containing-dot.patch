@@ -1,4 +1,4 @@
-From c180aa80773a50794cef5bff389d663b876b49b3 Mon Sep 17 00:00:00 2001
+From 1d00df675017b9bedd81cbf07174e727dd7d1056 Mon Sep 17 00:00:00 2001
 From: foss-mc <69294560+foss-mc@users.noreply.github.com>
 Date: Wed, 16 Dec 2020 18:25:51 +0800
 Subject: [PATCH] Don't allow name containing dot

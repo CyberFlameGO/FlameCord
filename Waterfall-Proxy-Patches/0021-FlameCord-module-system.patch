@@ -1,4 +1,4 @@
-From 9d1c11965e719870b3f8cd3c31cfeb4ca966cde0 Mon Sep 17 00:00:00 2001
+From 2990947c2588aa4772ebcf59eb0ec84fd428aa3b Mon Sep 17 00:00:00 2001
 From: linsaftw <25271111+linsaftw@users.noreply.github.com>
 Date: Sat, 1 May 2021 14:17:48 -0300
 Subject: [PATCH] FlameCord module system
@@ -134,7 +134,7 @@ index 00000000..e82c4844
 +        }
 +}
 diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
-index 46f180a0..b1ac28a5 100644
+index 41342ddb..8e3a9d25 100644
 --- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 +++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 @@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;

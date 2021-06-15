@@ -1,11 +1,11 @@
-From a497afed2aec0b47499e6d4f9cadedab6a2512f6 Mon Sep 17 00:00:00 2001
+From 6becd40cc9126255a099fe189dcc5a243145cf4f Mon Sep 17 00:00:00 2001
 From: foss-mc <69294560+foss-mc@users.noreply.github.com>
 Date: Wed, 16 Dec 2020 18:36:08 +0800
 Subject: [PATCH] Finish early to avoid multiple incoming packets
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index 3120abdb..4a17a117 100644
+index 93021cef..1cebd8bc 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 @@ -453,6 +453,8 @@ public class InitialHandler extends PacketHandler implements PendingConnection

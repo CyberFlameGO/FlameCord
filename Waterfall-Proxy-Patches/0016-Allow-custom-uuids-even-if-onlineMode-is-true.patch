@@ -1,11 +1,11 @@
-From 6b6dd8e0fc01d46fb928cbac548cc2ca1a0a7da1 Mon Sep 17 00:00:00 2001
+From 3ca34ded161f184fc3ebcd010507da77fb056a93 Mon Sep 17 00:00:00 2001
 From: foss-mc <69294560+foss-mc@users.noreply.github.com>
 Date: Wed, 16 Dec 2020 18:35:33 +0800
 Subject: [PATCH] Allow custom uuids even if onlineMode is true
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index b4067b1e..3120abdb 100644
+index 10b5aafb..93021cef 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 @@ -686,7 +686,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection

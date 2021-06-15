@@ -1,0 +1,161 @@
+From ead329889ba293e908a70301b9e633d18a11f8ef Mon Sep 17 00:00:00 2001
+From: LinsaFTW <25271111+linsaftw@users.noreply.github.com>
+Date: Tue, 15 Jun 2021 12:26:57 -0300
+Subject: [PATCH] Use Velocity Frame Decoder
+
+
+diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java b/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java
+index c0d37142..d42f8cec 100644
+--- a/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java
++++ b/protocol/src/main/java/net/md_5/bungee/protocol/Varint21FrameDecoder.java
+@@ -1,65 +1,56 @@
+ package net.md_5.bungee.protocol;
+ 
++import java.util.List;
++
+ import io.netty.buffer.ByteBuf;
+-import io.netty.buffer.Unpooled;
+ import io.netty.channel.ChannelHandlerContext;
+ import io.netty.handler.codec.ByteToMessageDecoder;
+ import io.netty.handler.codec.CorruptedFrameException;
+-import java.util.List;
++import net.md_5.bungee.protocol.VarintByteDecoder.DecodeResult;
+ 
+ public class Varint21FrameDecoder extends ByteToMessageDecoder
+ {
+ 
+-    private static boolean DIRECT_WARNING;
++    private static final CorruptedFrameException BAD_LENGTH_CACHED =
++        new CorruptedFrameException("Bad packet length");
++    private static final CorruptedFrameException VARINT_BIG_CACHED =
++        new CorruptedFrameException("VarInt too big");
+ 
+     @Override
+-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception
+-    {
+-        // If we decode an invalid packet and an exception is thrown (thus triggering a close of the connection),
+-        // the Netty ByteToMessageDecoder will continue to frame more packets and potentially call fireChannelRead()
+-        // on them, likely with more invalid packets. Therefore, check if the connection is no longer active and if so
+-        // sliently discard the packet.
+-        if ( !ctx.channel().isActive() )
+-        {
+-            in.skipBytes( in.readableBytes() );
++    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
++        if (!ctx.channel().isActive()) {
++            in.clear();
+             return;
+         }
+ 
+-        in.markReaderIndex();
+-
+-        for ( int i = 0; i < 3; i++ ) // Waterfall
+-        {
+-            if ( !in.isReadable() )
+-            {
+-                in.resetReaderIndex();
+-                return;
+-            }
++        final VarintByteDecoder reader = new VarintByteDecoder();
+ 
+-            // Waterfall start
+-            byte read = in.readByte();
+-            if ( read >= 0 )
+-            {
+-                in.resetReaderIndex();
+-                int length = DefinedPacket.readVarInt( in );
+-                // Waterfall end
+-                if ( false && length == 0) // Waterfall - ignore
+-                {
+-                    throw new CorruptedFrameException( "Empty Packet!" );
+-                }
++        int varintEnd = in.forEachByte(reader);
++        if (varintEnd == -1) {
++            // We tried to go beyond the end of the buffer. This is probably a good sign that the
++            // buffer was too short to hold a proper varint.
++            return;
++        }
+ 
+-                if ( in.readableBytes() < length )
+-                {
+-                    in.resetReaderIndex();
+-                    return;
+-                    // Waterfall start
+-                } else {
+-                    out.add(in.readRetainedSlice(length));
+-                    return;
+-                    // Waterfall end
++        if (reader.getResult() == DecodeResult.SUCCESS) {
++            int readVarint = reader.getReadVarint();
++            int bytesRead = reader.getBytesRead();
++            if (readVarint < 0) {
++                in.clear();
++                throw BAD_LENGTH_CACHED;
++            } else if (readVarint == 0) {
++                // skip over the empty packet and ignore it
++                in.readerIndex(varintEnd + 1);
++            } else {
++                int minimumRead = bytesRead + readVarint;
++                if (in.isReadable(minimumRead)) {
++                    out.add(in.retainedSlice(varintEnd + 1, readVarint));
++                    in.skipBytes(minimumRead);
+                 }
+             }
++        } else if (reader.getResult() == DecodeResult.TOO_BIG) {
++            in.clear();
++            throw VARINT_BIG_CACHED;
+         }
+-
+-        throw new CorruptedFrameException( "length wider than 21-bit" );
+     }
+ }
+diff --git a/protocol/src/main/java/net/md_5/bungee/protocol/VarintByteDecoder.java b/protocol/src/main/java/net/md_5/bungee/protocol/VarintByteDecoder.java
+new file mode 100644
+index 00000000..d9bd5d16
+--- /dev/null
++++ b/protocol/src/main/java/net/md_5/bungee/protocol/VarintByteDecoder.java
+@@ -0,0 +1,42 @@
++package net.md_5.bungee.protocol;
++
++import io.netty.util.ByteProcessor;
++
++public class VarintByteDecoder implements ByteProcessor {
++
++    private int readVarint;
++    private int bytesRead;
++    private DecodeResult result = DecodeResult.TOO_SHORT;
++  
++    @Override
++    public boolean process(byte k) {
++      readVarint |= (k & 0x7F) << bytesRead++ * 7;
++      if (bytesRead > 3) {
++        result = DecodeResult.TOO_BIG;
++        return false;
++      }
++      if ((k & 0x80) != 128) {
++        result = DecodeResult.SUCCESS;
++        return false;
++      }
++      return true;
++    }
++  
++    public int getReadVarint() {
++      return readVarint;
++    }
++  
++    public int getBytesRead() {
++      return bytesRead;
++    }
++  
++    public DecodeResult getResult() {
++      return result;
++    }
++  
++    public enum DecodeResult {
++      SUCCESS,
++      TOO_SHORT,
++      TOO_BIG
++    }
++}
+-- 
+2.31.1.windows.1
+

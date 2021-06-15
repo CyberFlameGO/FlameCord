@@ -1,4 +1,4 @@
-From 40d019da485a276d84ebf1fe9aa0276288e50b55 Mon Sep 17 00:00:00 2001
+From 0673c96b6c279c7e6ff30dfc969f2c82ab69e3f0 Mon Sep 17 00:00:00 2001
 From: foss-mc <69294560+foss-mc@users.noreply.github.com>
 Date: Wed, 16 Dec 2020 18:14:02 +0800
 Subject: [PATCH] Default timeout to 10000
