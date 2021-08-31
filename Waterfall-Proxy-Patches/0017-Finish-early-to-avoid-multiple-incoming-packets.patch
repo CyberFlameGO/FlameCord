@@ -1,14 +1,22 @@
+<<<<<<< HEAD:Waterfall-Proxy-Patches/0017-Finish-early-to-avoid-multiple-incoming-packets.patch
 From 6becd40cc9126255a099fe189dcc5a243145cf4f Mon Sep 17 00:00:00 2001
+=======
+From f8d0abde43d1fa6abc45631b372e5a71d1af2f48 Mon Sep 17 00:00:00 2001
+>>>>>>> upstream/master:Waterfall-Proxy-Patches/0016-Finish-early-to-avoid-multiple-incoming-packets.patch
 From: foss-mc <69294560+foss-mc@users.noreply.github.com>
 Date: Wed, 16 Dec 2020 18:36:08 +0800
 Subject: [PATCH] Finish early to avoid multiple incoming packets
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+<<<<<<< HEAD:Waterfall-Proxy-Patches/0017-Finish-early-to-avoid-multiple-incoming-packets.patch
 index 93021cef..1cebd8bc 100644
+=======
+index 554526a3..e643d8a7 100644
+>>>>>>> upstream/master:Waterfall-Proxy-Patches/0016-Finish-early-to-avoid-multiple-incoming-packets.patch
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-@@ -453,6 +453,8 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -447,6 +447,8 @@ public class InitialHandler extends PacketHandler implements PendingConnection
      {
          Preconditions.checkState( thisState == State.ENCRYPT, "Not expecting ENCRYPT" );
  
@@ -17,7 +25,7 @@ index 93021cef..1cebd8bc 100644
          SecretKey sharedKey = EncryptionUtil.getSecret( encryptResponse, request );
          // Waterfall start
          if (sharedKey instanceof SecretKeySpec) {
-@@ -512,6 +514,9 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -506,6 +508,9 @@ public class InitialHandler extends PacketHandler implements PendingConnection
  
      private void finish()
      {
@@ -27,7 +35,7 @@ index 93021cef..1cebd8bc 100644
          if ( isOnlineMode() )
          {
              // Check for multiple connections
-@@ -593,8 +598,6 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -587,8 +592,6 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                              }
  
                              userCon.connect( server, null, true, ServerConnectEvent.Reason.JOIN_PROXY );
@@ -37,5 +45,5 @@ index 93021cef..1cebd8bc 100644
                      }
                  } );
 -- 
-2.31.1.windows.1
+2.32.0.windows.1
 

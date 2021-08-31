@@ -1,14 +1,22 @@
+<<<<<<< HEAD:Waterfall-Proxy-Patches/0016-Allow-custom-uuids-even-if-onlineMode-is-true.patch
 From 3ca34ded161f184fc3ebcd010507da77fb056a93 Mon Sep 17 00:00:00 2001
+=======
+From ac987c138b977c2029dc845bbec5f9a1b70dd746 Mon Sep 17 00:00:00 2001
+>>>>>>> upstream/master:Waterfall-Proxy-Patches/0015-Allow-custom-uuids-even-if-onlineMode-is-true.patch
 From: foss-mc <69294560+foss-mc@users.noreply.github.com>
 Date: Wed, 16 Dec 2020 18:35:33 +0800
 Subject: [PATCH] Allow custom uuids even if onlineMode is true
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+<<<<<<< HEAD:Waterfall-Proxy-Patches/0016-Allow-custom-uuids-even-if-onlineMode-is-true.patch
 index 10b5aafb..93021cef 100644
+=======
+index 1925188f..554526a3 100644
+>>>>>>> upstream/master:Waterfall-Proxy-Patches/0015-Allow-custom-uuids-even-if-onlineMode-is-true.patch
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-@@ -686,7 +686,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -680,7 +680,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
      public void setUniqueId(UUID uuid)
      {
          Preconditions.checkState( thisState == State.USERNAME, "Can only set uuid while state is username" );
@@ -18,5 +26,5 @@ index 10b5aafb..93021cef 100644
      }
  
 -- 
-2.31.1.windows.1
+2.32.0.windows.1
 
